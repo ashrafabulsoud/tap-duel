@@ -45,12 +45,13 @@ export default function GameScreen() {
   useEffect(() => {
     if (gameState !== 'playing') return
 
+    const gameDuration = useGameStore.getState().duration
     startTimeRef.current = performance.now()
-    setTimeLeft(60)
+    setTimeLeft(gameDuration)
 
     const tick = (now: number) => {
       const elapsed = (now - startTimeRef.current) / 1000
-      const remaining = Math.max(0, 60 - elapsed)
+      const remaining = Math.max(0, gameDuration - elapsed)
       setTimeLeft(remaining)
 
       if (remaining <= 0) {
